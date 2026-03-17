@@ -14,24 +14,9 @@ abstract class UserModel with _$UserModel {
     @Default(false) bool isPremium,
     @Default(0) double rating,
     @Default([]) List<String> rozetler,
+    @Default('') String avatarUrl,
     required DateTime kayitTarihi,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }
-
-
-/* 
-
-(((( "lib/features/auth/repository/auth_repository.dart"  22-28. satırlarda kullandık silinebilir    ))))
-
-// İleride kullanıcıyı Firebase'e kaydederken böyle kullanıcaz
-
-final yeniKullanici = UserModel(
-  uid: firebaseUser.uid,
-  email: firebaseUser.email!,
-  name: 'Sefa',
-  kayitTarihi: DateTime.now(),  // Sistem otomatik atıyor
-);
-
-*/
