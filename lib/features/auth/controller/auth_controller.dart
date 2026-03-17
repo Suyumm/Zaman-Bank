@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-// as firebase_auth → firebase_auth.User olarak kullanmak için
-// NEDEN: Firebase'in User sınıfı ile başka paketlerdeki User sınıfı karışabilir
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zaman_bankasi/features/auth/model/user_model.dart';
 import 'package:zaman_bankasi/features/auth/repository/auth_repository.dart';
@@ -18,12 +16,12 @@ final currentUserProvider = FutureProvider<UserModel?>((ref) async {
       return await userRepo.kullaniciyiGetir(firebaseUser.uid);
     },
     loading: () => null,
-    error: (_, __) => null,
+    error: (_, _) => null,
   );
 });
 
 // 2) Auth işlemlerini yöneten controller
-class AuthController extends AutoDisposeAsyncNotifier<void> {
+class AuthController extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {
     // Başlangıçta bir şey yapmıyoruz
@@ -78,7 +76,12 @@ class AuthController extends AutoDisposeAsyncNotifier<void> {
 }
 
 // 3) AuthController'ın provider'ı   (niye kapanmıyo diye merak etmeyin ha tek satır bi işlem bu :D )
-final authControllerProvider =
-    AsyncNotifierProvider.autoDispose<AuthController, void>(
-      () => AuthController(),
-    );
+final authControllerProvider = AsyncNotifierProvider<AuthController, void>(
+  () => AuthController(),
+);
+
+/// ESKİ olan bu
+// final authControllerProvider =
+//     AsyncNotifierProvider.autoDispose<AuthController, void>(
+//       () => AuthController(),
+//     );
