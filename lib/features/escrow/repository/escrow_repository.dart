@@ -12,7 +12,7 @@ class EscrowRepository {
     final userRef = _firestore.collection('Users').doc(hizmetAlanUid);
     final ilanRef = _firestore.collection('İlanlar').doc(ilanId);
     final havuzRef = _firestore.collection('HavuzIslemleri').doc();
-    
+
     await _firestore.runTransaction((transaction) async {
       // Önce ilanı açan kişinin verisini oku
       final userSnapshot = await transaction.get(userRef);
@@ -26,13 +26,13 @@ class EscrowRepository {
         throw Exception("İlan sahibinin yeterli zaman kredisi yok.");
       }
 
-      // İlan hala "Acik" durumunda mı kontrol et 
+      // İlan hala "Acik" durumunda mı kontrol et
       final ilanSnapshot = await transaction.get(ilanRef);
       if (ilanSnapshot.data()?['durum'] != 'Acik') {
         throw Exception("Bu ilan artık açık değil veya başkası talip olmuş.");
       }
 
-      // Hizmet alanın kredisini 1 düşür 
+      // Hizmet alanın kredisini 1 düşür
       transaction.update(userRef, {'zaman_kredisi': mevcutKredi - 1});
 
       // İlanın durumunu "Eslesti" yap
@@ -45,7 +45,8 @@ class EscrowRepository {
         'hizmet_veren_uid': hizmetVerenUid,
         'hizmet_alan_uid': hizmetAlanUid,
         'bloke_kredi': 1,
-        'baslangic_zamani': FieldValue.serverTimestamp(), // Firebase'in kendi saatini kullanırız
+        'baslangic_zamani':
+            FieldValue.serverTimestamp(), // Firebase'in kendi saatini kullanırız
         'durum': 'Havuzda',
       });
     });

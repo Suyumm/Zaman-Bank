@@ -38,6 +38,12 @@ dependencies:
   cloud_firestore: ^6.1.3
   firebase_core: ^4.5.0
 
+  # Sefa Ekledi :)
+  freezed_annotation: ^3.1.0    # freezed'in annotation'ları (@freezed gibi)
+  json_annotation: ^4.11.0       # json_serializable'ın annotation'ları (@JsonKey gibi)
+  firebase_auth: ^6.2.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,6 +54,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+
+  # Sefa Ekledi :)
+  freezed: ^3.2.5               # Kod üretici (generator) - build sırasında çalışır
+  json_serializable: ^6.13.0     # JSON kodunu üreten generator
+  build_runner: ^2.12.2          # Generator'ları çalıştıran araç 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
